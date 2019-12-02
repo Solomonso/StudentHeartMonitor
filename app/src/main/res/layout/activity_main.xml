@@ -34,7 +34,7 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonStudent"
         android:layout_width="123dp"
         android:layout_height="71dp"
         android:background="#2F7183"
