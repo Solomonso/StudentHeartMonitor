@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 openTeacherLoginPage();
                 //added comment
-                //added comment
             }
         });
     }
