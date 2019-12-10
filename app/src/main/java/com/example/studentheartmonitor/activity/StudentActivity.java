@@ -1,14 +1,16 @@
-package com.example.studentheartmonitor;
+package com.example.studentheartmonitor.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LoginStudentPage extends AppCompatActivity {
+import com.example.studentheartmonitor.R;
+
+public class StudentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_student_page);
+        setContentView(R.layout.activity_student);
     }
 }
