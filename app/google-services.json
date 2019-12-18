@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1060901606618",
+    "firebase_url": "https://studentheartmonitor.firebaseio.com",
+    "project_id": "studentheartmonitor",
+    "storage_bucket": "studentheartmonitor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060901606618:android:ff7ca6afd456194b3f01e3",
+        "android_client_info": {
+          "package_name": "com.example.studentheartmonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060901606618-hr1il578dr4uatimghkj91s0057a24uh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentheartmonitor",
+            "certificate_hash": "96de87d4b1f54ede2eb963994679ceab533fbf5e"
+          }
+        },
+        {
+          "client_id": "1060901606618-hjvmjse8pv51m3c08m5e7vutjq6i996l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiXc9DrEsSiPi0CnUayzrdoM8iq5saAjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060901606618-hjvmjse8pv51m3c08m5e7vutjq6i996l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
