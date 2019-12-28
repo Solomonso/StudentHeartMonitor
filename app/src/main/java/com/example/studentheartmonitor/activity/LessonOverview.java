@@ -101,7 +101,7 @@ public class LessonOverview extends AppCompatActivity {
         }
         else
         {
-            info = info + "Innovate";
+            info = info + "Lesson \nInnovate";
             textLessonName.setText(info);
         }
     }

@@ -74,11 +74,11 @@ public class StudentActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId())
                 {
-                    case R.id.nav_join_lesson:
-                        menuItem.setChecked(true);
-                        displayMessage("Join lesson selected...");
-                        drawerLayout.closeDrawers();
-                        return true;
+//                    case R.id.nav_join_lesson:
+//                        menuItem.setChecked(true);
+//                        displayMessage("Join lesson selected...");
+//                        drawerLayout.closeDrawers();
+//                        return true;
 
                     case R.id.nav_log_out:
                         menuItem.setChecked(true);
