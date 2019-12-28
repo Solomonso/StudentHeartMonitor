@@ -121,44 +121,43 @@ public class LoginStudentPage extends AppCompatActivity {
                 Log.d(TAG, "Login Response: " + response.toString());
                 hideDialog();
 
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // Check for error node in json
-                    if (!error) {
-                        // user successfully logged in
-                        // Create login session
-                        session.setLogin(true);
-
-                        // Now store the user in SQLite
-                        String uid = jObj.getString("uid");
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
-
-                        // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
-
-                        // Launch main activity
-                        Intent intent = new Intent(LoginStudentPage.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        // Error in login. Get the error message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+//                try {
+//                    JSONObject jObj = new JSONObject(response);
+//                    boolean error = jObj.getBoolean("error");
+//
+//                    // Check for error node in json
+//                    if (!error) {
+//                        // user successfully logged in
+//                        // Create login session
+//                        session.setLogin(true);
+//
+//                        // Now store the user in SQLite
+//                        //String uid = jObj.getString("uid");
+//
+//                        JSONObject teacher = jObj.getJSONObject("teacher");
+//                        String teacher_username = teacher.getString("teacher_username");
+//                        String teacher_email = teacher.getString("teacher_email");
+//                        String teacher_password = teacher.getString("teacher_password");
+//
+//                        // Inserting row in users table
+//                        db.addUser(teacher_username, teacher_email, teacher_password);
+//
+//                        // Launch main activity
+//                        Intent intent = new Intent(LoginStudentPage.this,
+//                                MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        // Error in login. Get the error message
+//                        String errorMsg = jObj.getString("error_msg");
+//                        Toast.makeText(getApplicationContext(),
+//                                errorMsg, Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    // JSON error
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
 
             }
         }, new Response.ErrorListener() {

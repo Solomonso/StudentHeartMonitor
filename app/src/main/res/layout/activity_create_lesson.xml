@@ -9,76 +9,75 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="414dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
+
+
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/email"
-            android:textColor="#FFFFFF" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
+            android:text="@string/create_lesson"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="@string/password"
+            android:layout_marginBottom="10dp"
+            android:text="@string/lesson_code"
             android:textColor="#FFFFFF" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/lessonCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="18dp"
             android:background="@color/white"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
-        <!-- Login Button -->
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lesson_name"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/lessonName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnCreateLesson"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@color/btn_login_bg"
-            android:text="@string/btn_login"
+            android:text="@string/create_lesson_button"
             android:textColor="@color/btn_login" />
 
-        <!-- Link to Login Screen -->
-
-        <Button
-            android:id="@+id/btnLinkToRegisterScreen"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_register"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
     </LinearLayout>
 
 </LinearLayout>

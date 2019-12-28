@@ -135,14 +135,13 @@ public class LoginTeacherPage extends AppCompatActivity {
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
 
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
+                        JSONObject teacher = jObj.getJSONObject("user");
+                        String teacher_username = teacher.getString("teacher_username");
+                        String teacher_email = teacher.getString("teacher_email");
+                        //String  uid = teacher.getString("uid");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(teacher_username, teacher_email, uid);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginTeacherPage.this,TeacherActivity.class);
@@ -176,8 +175,8 @@ public class LoginTeacherPage extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
+                params.put("teacher_email", email);
+                params.put("teacher_password", password);
 
                 return params;
             }

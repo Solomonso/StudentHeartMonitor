@@ -34,6 +34,8 @@ import com.example.studentheartmonitor.helper.SQLiteHandler;
 import com.example.studentheartmonitor.helper.SessionManager;
 import com.google.android.material.navigation.NavigationView;
 
+import static java.nio.file.Paths.get;
+
 
 public class TeacherActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -41,7 +43,9 @@ public class TeacherActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txtName;
     private TextView txtEmail;
-
+    private Button buttonCreateLesson;
+    private Button buttonLessonOverview;
+    private TextView textLessonCode;
     private SQLiteHandler db;
     private SessionManager session;
 
@@ -62,7 +66,26 @@ public class TeacherActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
+        //create lesson button
+        buttonCreateLesson = findViewById(R.id.createLesson);
+        buttonCreateLesson.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openCreateLesson();
+            }
+        });
 
+        //lesson overview button
+        buttonLessonOverview = findViewById(R.id.lessonOverview);
+        buttonLessonOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                openLessonOverview();
+            }
+        });
         //menus in the navigation
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
@@ -76,7 +99,7 @@ public class TeacherActivity extends AppCompatActivity {
                 {
                     case R.id.nav_lesson_overview:
                         menuItem.setChecked(true);
-                        displayMessage("Lesson overview Selected...");
+                        openLessonOverview();
                         drawerLayout.closeDrawers();
                         return true;
 
@@ -101,6 +124,9 @@ public class TeacherActivity extends AppCompatActivity {
         txtName = findViewById(R.id.name);
         txtEmail =  findViewById(R.id.email);
 
+        //get the lesson_code by id
+        textLessonCode = findViewById(R.id.text_view_lesson_code);
+
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
@@ -114,12 +140,30 @@ public class TeacherActivity extends AppCompatActivity {
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
 
-        String name = user.get("name");
-        String email = user.get("email");
+        // Fetching lesson details from SQLite
+        HashMap<String,String> lesson = db.getUserLessonDetails();
+
+        String name = user.get("teacher_username");
+        String email = user.get("teacher_email");
+
+        //get lesson code
+        String lessonCode = lesson.get("lesson_code");
 
         // Displaying the user details on the screen
         txtName.setText(name);
         txtEmail.setText(email);
+
+        //displaying the lesson code on the screen
+        String info = "";
+        if(lessonCode != null) {
+            info = info + "Lesson Code is " + lessonCode;
+            textLessonCode.setText(info);
+        }
+        else
+        {
+            info = info + "Lesson Code Appear Here ";
+            textLessonCode.setText(info);
+        }
 
     }
 
@@ -149,11 +193,26 @@ public class TeacherActivity extends AppCompatActivity {
     private void logoutUser() {
         session.setLogin(false);
 
+        db.deleteLessons();
         db.deleteUsers();
 
         // Launching the login activity
         Intent intent = new Intent(TeacherActivity.this, LoginTeacherPage.class);
         startActivity(intent);
         finish();
+    }
+
+    //teacher lesson overview
+    public void openLessonOverview()
+    {
+        Intent intent = new Intent(TeacherActivity.this,com.example.studentheartmonitor.activity.LessonOverview.class);
+        startActivity(intent);
+    }
+
+    //teacher create lesson
+    public void openCreateLesson()
+    {
+        Intent intent = new Intent(TeacherActivity.this,com.example.studentheartmonitor.activity.CreateLessonActivity.class);
+        startActivity(intent);
     }
 }

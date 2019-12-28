@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow specific domains change the ip address to your pc ip -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.178.17</domain>
+    </domain-config>
+</network-security-config>
+      <!-- Allow all domains -->
+
+    <!-- <base-config cleartextTrafficPermitted="true"/> -->
+
+    <!-- </base-config> -->
+    <!-- <base-config cleartextTrafficPermitted="true">
+    <trust-anchors>
+        <certificates src="system" />
+    </trust-anchors>
+    </base-config> -->
+

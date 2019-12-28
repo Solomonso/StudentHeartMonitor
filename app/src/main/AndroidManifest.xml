@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.studentheartmonitor">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.studentheartmonitor"
+    android:targetSandboxVersion="1">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,12 +11,23 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.LessonOverview"></activity>
+        <activity android:name=".activity.CreateLessonActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity android:name=".activity.StudentActivity" />
-        <activity android:name=".activity.LoginTeacherPage"
-            android:label="@string/sign_in_teacher"/>
+        <activity
+            android:name=".activity.LoginTeacherPage"
+            android:label="@string/sign_in_teacher" />
         <activity
             android:name=".activity.LoginStudentPage"
             android:label="@string/app_name" />

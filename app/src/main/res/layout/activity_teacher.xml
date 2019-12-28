@@ -28,6 +28,14 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/text_view_lesson_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/lesson_code_here"
+            android:textSize="20sp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -55,12 +63,12 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/lessonHistory"
+            android:id="@+id/lessonOverview"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginBottom="140dp"
             android:background="@color/btn_logut_bg"
-            android:text="@string/lesson_history"
+            android:text="@string/lesson_overview"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />

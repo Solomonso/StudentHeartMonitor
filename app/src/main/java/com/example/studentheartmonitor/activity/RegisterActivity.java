@@ -126,15 +126,14 @@ public class RegisterActivity extends Activity {
                         // User successfully stored in MySQL
                         // Now store the user in sqlite
                         String uid = jObj.getString("uid");
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
+                        JSONObject teacher = jObj.getJSONObject("user");
+                        String teacher_username = teacher.getString("teacher_username");
+                        String teacher_email = teacher.getString("teacher_email");
+                        //String teacher_password = teacher.getString("teacher_password");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(teacher_username, teacher_email, uid);
+                        Log.d(TAG, "inserted into table");
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -172,9 +171,9 @@ public class RegisterActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
+                params.put("teacher_username", name);
+                params.put("teacher_email", email);
+                params.put("teacher_password", password);
 
                 return params;
             }
