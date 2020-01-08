@@ -30,7 +30,16 @@
     <string name="home">Home</string>
     <string name="number_of_students">Total Number Of Students:</string>
     <string name="sign_up">Sign Up Teacher</string>
+
     <string name="title_activity_join_lesson">JoinLesson</string>
+
+    <string name="sign_up_student">Sign Up Student</string>
+    <string name="sign_in_student">Sign in Student</string>
+    <string name="join_lesson">Join Lesson</string>
+    <string name="join_lesson_button">Join Lesson</string>
+    <string name="average_bpm_text">Average BPM</string>
+    <string name="bpm">BPM</string>
+
     <!--    <string name="title_activity_login">Sign in</string>-->
     <!--    <string name="prompt_email">Email</string>-->
     <!--    <string name="prompt_password">Password</string>-->

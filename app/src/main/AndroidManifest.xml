@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".activity.JoinLesson"
             android:label="@string/title_activity_join_lesson"
@@ -26,6 +27,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.studentheartmonitor.activity.StudentActivity" />
         </activity>
+
+        <activity android:name=".activity.JoinLessonActivitySolomon"></activity>
+        <activity android:name=".activity.RegisterActivityStudent" />
+
         <activity android:name=".activity.LessonOverview" />
         <activity android:name=".activity.CreateLessonActivity" />
 

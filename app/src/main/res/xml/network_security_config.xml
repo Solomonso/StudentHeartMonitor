@@ -2,7 +2,7 @@
 <network-security-config>
     <!-- Allow specific domains change the ip address to your pc ip -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.178.17</domain>
+        <domain includeSubdomains="true">192.168.178.24</domain>
     </domain-config>
 </network-security-config>
       <!-- Allow all domains -->
