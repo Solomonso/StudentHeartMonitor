@@ -26,7 +26,7 @@ import com.example.studentheartmonitor.app.AppConfig;
 import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 
-public class JoinLessonActivity extends AppCompatActivity {
+public class JoinLessonActivitySolomon extends AppCompatActivity {
     private EditText studentInputLessonCode;
     private Button btnJoinLesson;
     private SQLiteHandler db;

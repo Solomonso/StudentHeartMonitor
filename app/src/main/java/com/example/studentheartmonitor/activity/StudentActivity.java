@@ -7,28 +7,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.time.format.DateTimeFormatter;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 
-import com.example.studentheartmonitor.MainActivity;
 import com.example.studentheartmonitor.R;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 import com.example.studentheartmonitor.helper.SessionManager;
@@ -158,7 +149,8 @@ public class StudentActivity extends AppCompatActivity {
     //student join lesson
     public void openJoinLesson()
     {
-        Intent intent = new Intent(StudentActivity.this,com.example.studentheartmonitor.activity.JoinLessonActivity.class);
+        //comment addd
+        Intent intent = new Intent(StudentActivity.this, JoinLessonActivitySolomon.class);
         startActivity(intent);
     }
 }
