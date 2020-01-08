@@ -96,7 +96,7 @@ public class LoginTeacherPage extends AppCompatActivity {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        com.example.studentheartmonitor.activity.RegisterActivity.class);
+                        com.example.studentheartmonitor.activity.RegisterActivityStudent.class);
                 startActivity(i);
                 finish();
             }

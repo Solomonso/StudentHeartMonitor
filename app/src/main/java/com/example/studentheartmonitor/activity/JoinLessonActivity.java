@@ -1,0 +1,69 @@
+package com.example.studentheartmonitor.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.example.studentheartmonitor.R;
+import com.example.studentheartmonitor.app.AppConfig;
+import com.example.studentheartmonitor.app.AppController;
+import com.example.studentheartmonitor.helper.SQLiteHandler;
+
+public class JoinLessonActivity extends AppCompatActivity {
+    private EditText studentInputLessonCode;
+    private Button btnJoinLesson;
+    private SQLiteHandler db;
+    private ProgressDialog pDialog;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_join_lesson);
+
+        //get the lesson code
+        studentInputLessonCode = findViewById(R.id.lessonCode);
+
+        //get the lesson button
+        btnJoinLesson = findViewById(R.id.btnJoinLesson);
+
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        // Join Lesson Button Click event
+        btnJoinLesson.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String lessonCode = studentInputLessonCode.getText().toString().trim();
+
+                if (!lessonCode.isEmpty())
+                {
+                    //joinLesson(lessonCode);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Please fill in the lesson code", Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        });
+    }
+
+
+}

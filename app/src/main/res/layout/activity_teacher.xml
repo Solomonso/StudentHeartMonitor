@@ -20,7 +20,7 @@
             android:id="@+id/text_view_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="90dp"
             android:text="@string/date"
             android:textAlignment="center"
             android:textColor="@color/date_color"
@@ -31,7 +31,7 @@
             android:id="@+id/text_view_lesson_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:text="@string/lesson_code_here"
             android:textSize="20sp" />
 

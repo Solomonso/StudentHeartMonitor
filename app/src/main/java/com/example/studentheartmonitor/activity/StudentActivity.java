@@ -64,7 +64,7 @@ public class StudentActivity extends AppCompatActivity {
 
 
         //menus in the navigation
-        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout_student);
         navigationView = findViewById(R.id.navigationView);
 
         //get the navigation items selected on the menu toolbar
@@ -74,13 +74,13 @@ public class StudentActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId())
                 {
-//                    case R.id.nav_join_lesson:
-//                        menuItem.setChecked(true);
-//                        displayMessage("Join lesson selected...");
-//                        drawerLayout.closeDrawers();
-//                        return true;
+                    case R.id.nav_join_lesson:
+                        menuItem.setChecked(true);
+                        openJoinLesson();
+                        drawerLayout.closeDrawers();
+                        return true;
 
-                    case R.id.nav_log_out:
+                    case R.id.nav_log_out_student:
                         menuItem.setChecked(true);
                         logoutUser();
                         drawerLayout.closeDrawers();
@@ -94,12 +94,12 @@ public class StudentActivity extends AppCompatActivity {
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
 
         //to display the date
-        TextView textViewDate = findViewById(R.id.text_view_date);
+        TextView textViewDate = findViewById(R.id.text_view_date2);
         textViewDate.setText(currentDate);
 
         //get the name and email by id
-        txtName = findViewById(R.id.name);
-        txtEmail =  findViewById(R.id.email);
+           txtName = findViewById(R.id.name);
+//        txtEmail =  findViewById(R.id.email);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -112,14 +112,12 @@ public class StudentActivity extends AppCompatActivity {
         }
 
         // Fetching user details from SQLite
-        HashMap<String, String> user = db.getUserDetails();
+        HashMap<String, String> user = db.getStudentDetails();
 
-        String name = user.get("name");
-        String email = user.get("email");
+        String name = user.get("student_username");
 
         // Displaying the user details on the screen
         txtName.setText(name);
-        txtEmail.setText(email);
 
     }
 
@@ -149,11 +147,18 @@ public class StudentActivity extends AppCompatActivity {
     private void logoutUser() {
         session.setLogin(false);
 
-        db.deleteUsers();
+        db.deleteStudents();
 
         // Launching the login activity
         Intent intent = new Intent(StudentActivity.this, LoginStudentPage.class);
         startActivity(intent);
         finish();
+    }
+
+    //student join lesson
+    public void openJoinLesson()
+    {
+        Intent intent = new Intent(StudentActivity.this,com.example.studentheartmonitor.activity.JoinLessonActivity.class);
+        startActivity(intent);
     }
 }

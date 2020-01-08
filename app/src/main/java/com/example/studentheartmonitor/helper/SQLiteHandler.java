@@ -20,10 +20,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "heart_rate";
 
-    // Login table name
+    // Login table name for teacher
     private static final String TABLE_USER = "teacher";
 
+    // Login table name student
+    private static final String TABLE_STUDENT = "student";
 
+    // Login Table Columns names for the student table
+    private static final String KEY_ID_STUDENT = "student_id";
+    private static final String KEY_NAME_STUDENT = "student_username";
+    private static final String KEY_EMAIL_STUDENT = "student_email";
+    private static final String KEY_UID_STUDENT = "uid";
 
     // Login Table Columns names
     private static final String KEY_ID = "teacher_id";
@@ -54,8 +61,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String CREATE_LESSON_TABLE = "CREATE TABLE " + TABLE_LESSON + "("
                 + KEY_LESSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LESSON_CODE + " TEXT,"
                 + KEY_LESSON_NAME + " TEXT" + ")";
+
+        String CREATE_STUDENT_TABLE = "CREATE TABLE " + TABLE_STUDENT + "("
+                + KEY_ID_STUDENT + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME_STUDENT + " TEXT,"
+                + KEY_EMAIL_STUDENT + " TEXT UNIQUE," + KEY_UID_STUDENT + " TEXT" + ")";
+
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_LESSON_TABLE);
+        db.execSQL(CREATE_STUDENT_TABLE);
 
         Log.d(TAG, "Database tables created");
     }
@@ -66,13 +79,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LESSON);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
 
         // Create tables again
         onCreate(db);
     }
 
     /**
-     * Storing user details in database
+     * Storing teacher details in database
      * */
     public void addUser(String teacher_username, String teacher_email, String uid) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -87,6 +101,24 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
 
         Log.d(TAG, "New user inserted into sqlite: " + id);
+    }
+
+    /**
+     * Storing student details in database
+     * */
+    public void addStudent(String student_username, String student_email, String uid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME_STUDENT, student_username); // Name
+        values.put(KEY_EMAIL_STUDENT, student_email); // Email
+        values.put(KEY_UID_STUDENT, uid); // Password
+
+        // Inserting Row
+        long id = db.insert(TABLE_STUDENT, null, values);
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New student rows inserted into sqlite: " + id);
     }
 
     /**
@@ -107,7 +139,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Getting user data from database
+     * Getting teacher data from database
      * */
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
@@ -128,6 +160,30 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return user;
     }
+
+    /**
+     * Getting student data from database
+     * */
+    public HashMap<String, String> getStudentDetails() {
+        HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            user.put("student_username", cursor.getString(1));
+            user.put("student_email", cursor.getString(2));
+            user.put("uid", cursor.getString(3));
+        }
+        cursor.close();
+        db.close();
+        // return user
+        Log.d(TAG, "Fetching students details from Sqlite: " + user.toString());
+
+        return user;
+    }
+
 
     /**
      * Getting lesson details from database
@@ -162,6 +218,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d(TAG, "Deleted all user info from sqlite");
+    }
+
+    /**
+     * Re crate database Delete all tables and create them again
+     * */
+    public void deleteStudents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.delete(TABLE_STUDENT, null, null);
+        db.close();
+
+        Log.d(TAG, "Deleted all students info from sqlite");
     }
 
     /**
