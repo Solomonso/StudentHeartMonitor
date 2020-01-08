@@ -181,7 +181,7 @@ public class StudentActivity extends AppCompatActivity {
     public void openJoinLesson()
     {
         //comment addd
-        Intent intent = new Intent(StudentActivity.this, JoinLessonActivitySolomon.class);
+        Intent intent = new Intent(StudentActivity.this, JoinLesson.class);
         startActivity(intent);
     }
 }
