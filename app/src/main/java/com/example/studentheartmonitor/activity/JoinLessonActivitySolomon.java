@@ -3,27 +3,13 @@ package com.example.studentheartmonitor.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.example.studentheartmonitor.R;
-import com.example.studentheartmonitor.app.AppConfig;
-import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 
 public class JoinLessonActivitySolomon extends AppCompatActivity {
@@ -34,7 +20,7 @@ public class JoinLessonActivitySolomon extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_lesson);
+        setContentView(R.layout.activity_join_lessonOld);
 
         //get the lesson code
         studentInputLessonCode = findViewById(R.id.lessonCode);
