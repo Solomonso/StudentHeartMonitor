@@ -11,7 +11,7 @@
     <string name="btn_login">LOGIN</string>
     <string name="btn_register">REGISTER</string>
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
-    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="btn_link_to_login">Already registered! Login Me.</string>
     <string name="welcome">Welcome</string>
     <string name="date">Date</string>
     <string name="create_lesson">Create Lesson</string>
