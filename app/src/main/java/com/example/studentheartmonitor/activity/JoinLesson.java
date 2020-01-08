@@ -6,8 +6,10 @@ import android.os.Bundle;
 
 import com.example.studentheartmonitor.R;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,102 +31,97 @@ import com.example.studentheartmonitor.app.AppConfig;
 import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 
-public class CreateLessonActivity extends AppCompatActivity {
-    private static final String TAG = CreateLessonActivity.class.getSimpleName();
+public class JoinLesson extends AppCompatActivity {
+    private static final String TAG = JoinLesson.class.getSimpleName();
+    private Button btnJoinLesson;
     private EditText inputLessonCode;
-    private  EditText inputLessonName;
     private ProgressDialog pDialog;
-    private Button btnCreateLesson;
     private SQLiteHandler db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_lesson);
+        setContentView(R.layout.activity_join_lesson);
 
-        //get the lesson inputs and button
         inputLessonCode = findViewById(R.id.lessonCodeInput);
-        inputLessonName = findViewById(R.id.lessonName);
+        btnJoinLesson =  findViewById(R.id.btnJoinLesson);
 
-        btnCreateLesson = findViewById(R.id.btnCreateLesson);
-
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
 
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-
-        // Create Lesson Button Click event
-        btnCreateLesson.setOnClickListener(new View.OnClickListener() {
+        // Login button Click Event
+        btnJoinLesson.setOnClickListener(new View.OnClickListener()
+        {
             public void onClick(View view) {
-                String lessonCode = inputLessonCode.getText().toString().trim();
-                String lessonName = inputLessonName.getText().toString().trim();
+                String LessonCode = inputLessonCode.getText().toString().trim();
 
-                if (!lessonCode.isEmpty() && !lessonName.isEmpty())
-                {
-                    createLesson(lessonCode,lessonName);
+                // Check for empty data
+                if (!LessonCode.isEmpty()) {
+                    joinLesson(LessonCode);
                 } else {
+                    // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
-                            "Please fill in the details!", Toast.LENGTH_LONG)
+                            "Please enter the lesson code!", Toast.LENGTH_LONG)
                             .show();
                 }
             }
         });
+
     }
 
     /**
-     * Function to store lesson in MySQL database will post params(tag, lessonCode,
-     * LessonName) to createLesson url
+     * function to verify lesson code in mysql db
      * */
-
-    private void createLesson(final String lessonCode, final String lessonName)
-    {
+    private void joinLesson(final String LessonCode) {
         // Tag used to cancel the request
-        String tag_string_req = "create_lesson";
+        String tag_string_req = "req_join";
 
-        pDialog.setMessage("Creating Lesson...");
+        pDialog.setMessage("Joining in ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST, AppConfig.URL_CREATE_LESSON, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Method.POST,
+                AppConfig.URL_JOIN_LESSON, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Create Response: " + response.toString());
+                Log.d(TAG, "Login Response: " + response.toString());
                 hideDialog();
 
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
                     if (!error) {
-//                        // User successfully stored in MySQL
-//                        // Now store the user in sqlite
-                        JSONObject lesson = jObj.getJSONObject("user");
-                        String lesson_code = lesson.getString("lesson_code");
-                        String lesson_name = lesson.getString("lesson_name");
 
-                        // Inserting row in users table
-                        db.addLesson(lesson_code, lesson_name);
-                        Log.d(TAG, "lesson inserted into table");
+                        // Now store the user in SQLite
+                        String lCode = jObj.getString("lCode");
 
-                        Toast.makeText(getApplicationContext(), "Lesson Successfully created", Toast.LENGTH_LONG).show();
+                        JSONObject lesson = jObj.getJSONObject("lesson");
+                        String teacher_username = teacher.getString("teacher_username");
+                        String teacher_email = teacher.getString("teacher_email");
 
-                        // Launch teacher activity
-                        Intent intent = new Intent(
-                                CreateLessonActivity.this,
-                                TeacherActivity.class);
+                        // Inserting row in table
+                        db.addUser(teacher_username, teacher_email, uid);
+
+                        // Launch student activity
+                        Intent intent = new Intent(JoinLesson.this,StudentActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-
-                        // Error occurred in creating lesson. Get the error
-                        // message
+                        // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
+                    // JSON error
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -132,7 +129,7 @@ public class CreateLessonActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Create Lesson Error: " + error.getMessage());
+                Log.e(TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
@@ -141,10 +138,10 @@ public class CreateLessonActivity extends AppCompatActivity {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting params to register url
+                // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lesson_code", lessonCode);
-                params.put("lesson_name", lessonName);
+                params.put("teacher_email", email);
+                params.put("teacher_password", password);
 
                 return params;
             }

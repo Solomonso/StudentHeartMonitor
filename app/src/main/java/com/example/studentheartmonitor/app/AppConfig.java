@@ -10,4 +10,6 @@ public class AppConfig {
     public static String URL_REGISTER = "http://192.168.178.17/heartrate_api/registerTeacher.php";
 
     public static String URL_CREATE_LESSON = "http://192.168.178.17/heartrate_api/createLesson.php";
+
+    public static String URL_JOIN_LESSON = "http://192.168.178.17/heartrate_api/joinLesson.php";
 }

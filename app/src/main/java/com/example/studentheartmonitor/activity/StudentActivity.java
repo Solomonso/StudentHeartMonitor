@@ -27,6 +27,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 import com.example.studentheartmonitor.MainActivity;
 import com.example.studentheartmonitor.R;
@@ -41,6 +44,8 @@ public class StudentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txtName;
     private TextView txtEmail;
+    private TextView BPM;
+    private TextView avgBPM;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -121,7 +126,33 @@ public class StudentActivity extends AppCompatActivity {
         txtName.setText(name);
         txtEmail.setText(email);
 
+        showBPM();
+        showAvgBPM();
     }
+
+    List<Integer> heartBeat = new ArrayList<>();
+    public void showBPM ()
+    {
+        int currentBPM = 0;
+        heartBeat.add(currentBPM);
+
+        BPM = findViewById(R.id.BPM);
+        BPM.setText(currentBPM);
+    }
+
+    public void showAvgBPM ()
+    {
+        int sum = 0;
+        int average;
+        for (int beat : this.heartBeat)
+        {
+            sum = sum + beat;
+        }
+        average = sum / heartBeat.size();
+        avgBPM = findViewById(R.id.AvgBPM);
+        avgBPM.setText(average);
+    }
+
 
     //method to make the action bar clickable
     @Override

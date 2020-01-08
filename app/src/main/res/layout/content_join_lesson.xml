@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2F7183"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.JoinLesson"
+    tools:showIn="@layout/activity_join_lesson">
+
+    <EditText
+        android:id="@+id/lessonCodeInput"
+        android:layout_width="288dp"
+        android:layout_height="114dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/btnJoinLesson"
+        android:layout_width="253dp"
+        android:layout_height="67dp"
+        android:background="@color/btn_login_bg"
+        android:text="Join Lesson"
+        android:textColor="@color/btn_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lessonCodeInput"
+        app:layout_constraintVertical_bias="0.405" />
+</androidx.constraintlayout.widget.ConstraintLayout>
