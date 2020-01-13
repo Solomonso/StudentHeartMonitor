@@ -32,7 +32,7 @@ import com.example.studentheartmonitor.helper.SessionManager;
 
 public class RegisterActivityStudent extends Activity  {
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = RegisterActivityStudent.class.getSimpleName();
     private Button btnRegister;
     private Button btnLinkToLogin;
     private EditText inputFullName;

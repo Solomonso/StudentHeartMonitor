@@ -20,10 +20,10 @@ public class JoinLessonActivitySolomon extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_lessonOld);
+        //setContentView(R.layout.activity_join_lessonOld);
 
         //get the lesson code
-        studentInputLessonCode = findViewById(R.id.lessonCode);
+        //studentInputLessonCode = findViewById(R.id.lessonCode);
 
         //get the lesson button
         btnJoinLesson = findViewById(R.id.btnJoinLesson);

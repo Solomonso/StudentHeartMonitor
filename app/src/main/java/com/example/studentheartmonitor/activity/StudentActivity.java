@@ -34,15 +34,17 @@ public class StudentActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView txtName;
-    private TextView txtEmail;
+
     private TextView BPM;
     private TextView avgBPM;
+    public static boolean isCheckIn;
 
     private SQLiteHandler db;
     private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        session.checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
@@ -115,6 +117,9 @@ public class StudentActivity extends AppCompatActivity {
         // Displaying the user details on the screen
         txtName.setText(name);
 
+        if(isCheckIn = true)
+        {
+        }
         showBPM();
         showAvgBPM();
     }
@@ -167,14 +172,8 @@ public class StudentActivity extends AppCompatActivity {
      * preferences Clears the user data from sqlite users table
      * */
     private void logoutUser() {
-        session.setLogin(false);
-
         db.deleteStudents();
-
-        // Launching the login activity
-        Intent intent = new Intent(StudentActivity.this, LoginStudentPage.class);
-        startActivity(intent);
-        finish();
+        session.logOut();
     }
 
     //student join lesson

@@ -128,8 +128,6 @@ public class LoginStudentPage extends AppCompatActivity {
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
-                        // Create login session
-                        session.setLogin(true);
 
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
@@ -146,6 +144,10 @@ public class LoginStudentPage extends AppCompatActivity {
                         Intent intent = new Intent(LoginStudentPage.this, StudentActivity.class);
                         startActivity(intent);
                         finish();
+
+                        // Create login session
+                        session.createSessionStudent(uid);
+
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");

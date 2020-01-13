@@ -51,6 +51,7 @@ public class TeacherActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        session.checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
@@ -191,15 +192,10 @@ public class TeacherActivity extends AppCompatActivity {
      * preferences Clears the user data from sqlite users table
      * */
     private void logoutUser() {
-        session.setLogin(false);
-
         db.deleteLessons();
         db.deleteUsers();
 
-        // Launching the login activity
-        Intent intent = new Intent(TeacherActivity.this, LoginTeacherPage.class);
-        startActivity(intent);
-        finish();
+        session.logOut();
     }
 
     //teacher lesson overview
