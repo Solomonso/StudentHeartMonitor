@@ -36,12 +36,13 @@ public class JoinLesson extends AppCompatActivity {
     private ProgressDialog pDialog;
     private SQLiteHandler db;
     private SessionManager session;
-    private String studentId;
+    private String student_Id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         session = new SessionManager(getApplicationContext());
-        studentId = session.getStudentId();
+        student_Id = session.getStudentId();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_lesson);
 
@@ -63,7 +64,7 @@ public class JoinLesson extends AppCompatActivity {
 
                 // Check for empty data
                 if (!LessonCode.isEmpty()) {
-                    joinLesson();
+                    joinLesson(LessonCode);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -77,8 +78,9 @@ public class JoinLesson extends AppCompatActivity {
     /**
      * function to verify lesson code in mysql db
      * */
-    private void joinLesson() {
+    private void joinLesson(final String LessonCode) {
         // Tag used to cancel the request
+
         String tag_string_req = "req_login";
 
         pDialog.setMessage("Logging in ...");
@@ -125,7 +127,17 @@ public class JoinLesson extends AppCompatActivity {
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("lesson_code", LessonCode);
+                params.put("student_id", student_Id);
+
+                return params;
+            }
+        };
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);

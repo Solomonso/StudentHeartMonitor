@@ -18,6 +18,6 @@ public class AppConfig {
     // Server user register url
     public static String URL_REGISTER_STUDENT = "http://192.168.43.98/heartrate_api/registerStudent.php";
 
-    //public static String URL_JOIN_LESSON = "http://192.168.178.24/heartrate_api/getCurrentLessonCode";
+    public static String URL_SEND_BPM = "http://192.168.43.98/heartrate_api/sendBPM.php";
 
 }

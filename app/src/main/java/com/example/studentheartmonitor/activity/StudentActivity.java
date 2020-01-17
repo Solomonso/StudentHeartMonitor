@@ -7,12 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,22 +23,36 @@ import java.util.HashMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.studentheartmonitor.R;
+import com.example.studentheartmonitor.app.AppConfig;
+import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 import com.example.studentheartmonitor.helper.SessionManager;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class StudentActivity extends AppCompatActivity {
+    private static final String TAG = StudentActivity.class.getSimpleName();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView txtName;
+    private ProgressDialog pDialog;
 
     private TextView BPM;
     private TextView avgBPM;
+
+    private int currentBPM = 0;
     public static boolean isCheckIn;
 
     private SQLiteHandler db;
@@ -47,6 +63,10 @@ public class StudentActivity extends AppCompatActivity {
         session.checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
 
         //toolbar
         toolbar = findViewById(R.id.toolBar);
@@ -97,7 +117,6 @@ public class StudentActivity extends AppCompatActivity {
 
         //get the name and email by id
            txtName = findViewById(R.id.name);
-//        txtEmail =  findViewById(R.id.email);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -117,17 +136,15 @@ public class StudentActivity extends AppCompatActivity {
         // Displaying the user details on the screen
         txtName.setText(name);
 
-        if(isCheckIn = true)
-        {
-        }
         showBPM();
         showAvgBPM();
+        String StringBPM = Integer.toString(currentBPM);
+        sendBPM(StringBPM);
     }
 
     List<Integer> heartBeat = new ArrayList<>();
     public void showBPM ()
     {
-        int currentBPM = 0;
         heartBeat.add(currentBPM);
 
         BPM = findViewById(R.id.BPM);
@@ -147,7 +164,78 @@ public class StudentActivity extends AppCompatActivity {
         avgBPM.setText(average);
     }
 
+    /**
+     * Function to store BPM in MySQL database
+     * */
+    private void sendBPM(final String StringBPM) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_register";
 
+        pDialog.setMessage("Registering ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_SEND_BPM, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Sending: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+
+                    } else {
+
+                        // Error occurred in registration. Get the error
+                        // message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to url
+                Map<String, String> params = new HashMap<>();
+                params.put("currentBPM", StringBPM);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+    //------------------------
     //method to make the action bar clickable
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
