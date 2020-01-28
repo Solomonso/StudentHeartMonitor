@@ -253,7 +253,7 @@
 		public function getLessonCode($inputLessonCode)
 		{
 			$stmt = $this->conn->prepare("SELECT lesson_code FROM lesson WHERE lesson_code = ?");
-			$stmt->bind_param("s",$lessonCode);
+			$stmt->bind_param("s",$inputLessonCode);
 
 			if($stmt->execute())
 			{
@@ -266,9 +266,10 @@
 		}
 		
 		//checkin to lesson
-		public function checkIn($student_Id)
+		public function checkIn($intStudent_id)
 		{
 			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = "true" WHERE student_id = ?");
+			$stmt->bind_param("s",$intStudent_id);
 			$result = $stmt->execute();
 			$stmt->close();
 			
@@ -291,7 +292,7 @@
 		//sending BPM to db
 		public function sendBPM($StringBPM)
 		{
-			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = "true" WHERE student_id = ?");
+			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = true WHERE student_id = ?");
 			$result = $stmt->execute();
 			$stmt->close();
 			

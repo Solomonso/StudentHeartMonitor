@@ -64,7 +64,7 @@ public class JoinLesson extends AppCompatActivity {
 
                 // Check for empty data
                 if (!LessonCode.isEmpty()) {
-                    joinLesson(LessonCode);
+                    joinLesson(LessonCode,student_Id);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -78,12 +78,12 @@ public class JoinLesson extends AppCompatActivity {
     /**
      * function to verify lesson code in mysql db
      * */
-    private void joinLesson(final String LessonCode) {
+    private void joinLesson(final String LessonCode,final String student_Id){
         // Tag used to cancel the request
 
         String tag_string_req = "req_login";
 
-        pDialog.setMessage("Logging in ...");
+        pDialog.setMessage("Checking in ...");
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -131,7 +131,7 @@ public class JoinLesson extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("lesson_code", LessonCode);
                 params.put("student_id", student_Id);
 
