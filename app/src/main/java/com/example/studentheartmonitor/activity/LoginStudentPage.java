@@ -28,7 +28,7 @@ import com.example.studentheartmonitor.R;
 import com.example.studentheartmonitor.app.AppConfig;
 import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
-import com.example.studentheartmonitor.helper.SessionManager;
+import com.example.studentheartmonitor.helper.SessionManager2;
 
 public class LoginStudentPage extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class LoginStudentPage extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private SessionManager session;
+    private SessionManager2 session;
     private SQLiteHandler db;
 
     @Override
@@ -59,7 +59,7 @@ public class LoginStudentPage extends AppCompatActivity {
         db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager2(getApplicationContext());
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -128,6 +128,8 @@ public class LoginStudentPage extends AppCompatActivity {
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
+                        // Create login session
+                        session.setLogin(true);
 
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
@@ -144,10 +146,6 @@ public class LoginStudentPage extends AppCompatActivity {
                         Intent intent = new Intent(LoginStudentPage.this, StudentActivity.class);
                         startActivity(intent);
                         finish();
-
-                        // Create login session
-                        session.createSessionStudent(uid);
-
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");

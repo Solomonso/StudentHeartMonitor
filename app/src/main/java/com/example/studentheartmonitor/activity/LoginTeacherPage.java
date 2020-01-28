@@ -96,7 +96,7 @@ public class LoginTeacherPage extends AppCompatActivity {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        com.example.studentheartmonitor.activity.RegisterActivityStudent.class);
+                        com.example.studentheartmonitor.activity.RegisterActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -129,6 +129,8 @@ public class LoginTeacherPage extends AppCompatActivity {
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
+                        // Create login session
+                        session.setLogin(true);
 
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
@@ -145,18 +147,12 @@ public class LoginTeacherPage extends AppCompatActivity {
                         Intent intent = new Intent(LoginTeacherPage.this,TeacherActivity.class);
                         startActivity(intent);
                         finish();
-
-                        // Create login session
-                        session.createSessionTeacher(uid);
-
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
                     }
-
-
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();

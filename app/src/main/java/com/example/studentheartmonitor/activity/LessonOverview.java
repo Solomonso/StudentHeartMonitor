@@ -121,7 +121,7 @@ public class LessonOverview extends AppCompatActivity {
 
     public void openTeacherHomePage()
     {
-        Intent intent = new Intent(LessonOverview.this,TeacherActivity.class);
+        Intent intent = new Intent(LessonOverview.this,com.example.studentheartmonitor.activity.TeacherActivity.class);
         startActivity(intent);
     }
 }
