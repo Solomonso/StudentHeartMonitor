@@ -6,13 +6,13 @@
 
 	if(isset($_POST["lesson_code"]))
 	{
-		 $inputLessonCode = $_POST["lesson_code"];
-		 $lessonCode = $db->getLessonCode($inputLessonCode);
+		 $lesson_code = $_POST["lesson_code"];
+		 $lessonCode = $db->getLessonCode($lesson_code);
 
 		 if($lessonCode != false)
 		{
 			$response["error"] = FALSE;
-			$response["lessonCode"]["inputLessonCode"] = $studentUser["inputLessonCode"];
+			$response["lessonCode"]["lesson_code"] = $studentUser["lesson_code"];
 			echo json_encode($reponse);
 			
 			$student_id = $_POST["student_id"];
