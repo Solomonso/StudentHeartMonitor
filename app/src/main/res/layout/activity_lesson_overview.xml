@@ -45,7 +45,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/lesson_name_text"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/class_name"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
@@ -82,6 +82,26 @@
             android:paddingBottom="15dp"
             android:textSize="18sp"
             android:text="@string/number_of_students"
+            android:textColor="@color/date_color" />
+
+        <TextView
+            android:id="@+id/student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            android:text="@string/student_name"
+            android:textColor="@color/date_color" />
+
+        <TextView
+            android:id="@+id/student_bpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            android:text="@string/student_bpm"
             android:textColor="@color/date_color" />
     </LinearLayout>
 

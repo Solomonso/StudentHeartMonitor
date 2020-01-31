@@ -129,11 +129,23 @@ public class StudentActivity extends AppCompatActivity {
                             //int i = Integer.parseInt(sBPM);
                             BPM.setText("BPM is: " +  sBPM);            // update TextView
                             //if it is this, nothing get sent to the database
-                            if(sBPM.equalsIgnoreCase("Remove and place finger") || sBPM.equalsIgnoreCase("oveove and place finger"))
+                            if(sBPM.equalsIgnoreCase("Remove and place finger") || sBPM.equalsIgnoreCase("oveove and place finger") || sBPM.equalsIgnoreCase("momove and place finger") || sBPM.equalsIgnoreCase("eemove and place finger") || sBPM.equalsIgnoreCase("Heartbeat Detection sample code.") || sBPM.equalsIgnoreCase("No connectionsNo connectionsNo connectionsNo connectionsNo connections 50") || sBPM.equalsIgnoreCase("No connectionsRemove and place finger") || sBPM.equalsIgnoreCase(" place finger"))
                             {
 
                             }
-                            else{ sendBPM(sBPM); }
+                            else {
+                                    //send to sqlite
+                                    db.addHeartRate(sBPM);
+                                    //send to mysql
+                                    sendBPM(sBPM);
+                                }
+
+//                            if(!sBPM.equalsIgnoreCase("Remove and place finger") || !sBPM.equalsIgnoreCase("oveove and place finger") || !sBPM.equalsIgnoreCase("momove and place finger") || !sBPM.equalsIgnoreCase("eemove and place finger"))
+//                            {
+//                                sendBPM(sBPM);
+//                                db.addHeartRate(sBPM);
+//                            }
+                            //else{ }
 
 
                             // btnOff.setEnabled(true);
@@ -508,6 +520,7 @@ public class StudentActivity extends AppCompatActivity {
         session.setLogin(false);
 
         db.deleteStudents();
+        db.deleteHeartRate();
 
         // Launching the login activity
         Intent intent = new Intent(StudentActivity.this, LoginStudentPage.class);

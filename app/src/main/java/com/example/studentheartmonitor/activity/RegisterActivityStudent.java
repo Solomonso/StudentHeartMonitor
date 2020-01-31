@@ -28,18 +28,18 @@ import com.example.studentheartmonitor.R;
 import com.example.studentheartmonitor.app.AppConfig;
 import com.example.studentheartmonitor.app.AppController;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
-import com.example.studentheartmonitor.helper.SessionManager;
+import com.example.studentheartmonitor.helper.SessionManager2;
 
 public class RegisterActivityStudent extends Activity  {
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = RegisterActivityStudent.class.getSimpleName();
     private Button btnRegister;
     private Button btnLinkToLogin;
     private EditText inputFullName;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private SessionManager session;
+    private SessionManager2 session;
     private SQLiteHandler db;
 
     @Override
@@ -58,7 +58,7 @@ public class RegisterActivityStudent extends Activity  {
         pDialog.setCancelable(false);
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager2(getApplicationContext());
 
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -136,7 +136,7 @@ public class RegisterActivityStudent extends Activity  {
 
                         // Inserting row in users table
                         db.addStudent(student_username, student_email, uid);
-                        Log.d(TAG, "inserted into table");
+                        Log.d(TAG, "student inserted into table");
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 

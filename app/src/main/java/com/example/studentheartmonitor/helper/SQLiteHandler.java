@@ -26,6 +26,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Login table name student
     private static final String TABLE_STUDENT = "student";
 
+    //lesson table name
+    private static final String TABLE_LESSON = "lesson";
+
+    private static final String TABLE_HEART = "heartrate";
+
     // Login Table Columns names for the student table
     private static final String KEY_ID_STUDENT = "student_id";
     private static final String KEY_NAME_STUDENT = "student_username";
@@ -38,14 +43,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "teacher_email";
     private static final String KEY_UID = "uid";
 
-    //lesson table name
-    private static final String TABLE_LESSON = "lesson";
 
     //lesson columns name
     private static final String KEY_LESSON_ID = "lesson_id";
     private static final String KEY_LESSON_CODE = "lesson_code";
     private static  final String KEY_LESSON_NAME = "lesson_name";
 
+    //heart rate columns names
+    private static final String KEY_HEART_ID = "id";
+    private static  final String KEY_HEART_RATE = "heartrate";
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -66,9 +72,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_ID_STUDENT + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME_STUDENT + " TEXT,"
                 + KEY_EMAIL_STUDENT + " TEXT UNIQUE," + KEY_UID_STUDENT + " TEXT" + ")";
 
+        String CREATE_HEART_RATE = "CREATE TABLE " + TABLE_HEART + "("
+                + KEY_HEART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_HEART_RATE + " TEXT" + ")";
+
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_LESSON_TABLE);
         db.execSQL(CREATE_STUDENT_TABLE);
+        db.execSQL(CREATE_HEART_RATE);
 
         Log.d(TAG, "Database tables created");
     }
@@ -80,6 +90,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LESSON);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HEART);
 
         // Create tables again
         onCreate(db);
@@ -139,6 +150,43 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Storing heartrate details in database
+     * */
+    public void addHeartRate(String heartrate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_HEART_RATE, heartrate); // heartrate
+
+        // Inserting Row
+        long id = db.insert(TABLE_HEART, null, values);
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New heart inserteNd into sqlite: " + id);
+    }
+
+    /**
+     * Getting heart data from database
+     * */
+    public HashMap<String, String> getHeartDetails() {
+        HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "SELECT * FROM " + TABLE_HEART + " ORDER BY id DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            user.put("heartrate", cursor.getString(1));
+        }
+        cursor.close();
+        db.close();
+        // return user
+        Log.d(TAG, "Fetching heart details from Sqlite: " + user.toString());
+
+        return user;
+    }
+
+    /**
      * Getting teacher data from database
      * */
     public HashMap<String, String> getUserDetails() {
@@ -184,7 +232,28 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return user;
     }
 
+   /**
+    * Getting student for  data from database
+     **/
+    public HashMap<String, String> getStudentDetailsForTeacher() {
+        HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT + " ORDER BY student_id DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            user.put("student_username", cursor.getString(1));
+            user.put("student_email", cursor.getString(2));
+            user.put("uid", cursor.getString(3));
+        }
+        cursor.close();
+        db.close();
+        // return user
+        Log.d(TAG, "Fetching students details for teacher from Sqlite: " + user.toString());
 
+        return user;
+    }
     /**
      * Getting lesson details from database
      **/
@@ -242,5 +311,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d(TAG, "Deleted all user info from sqlite");
+    }
+
+    public void deleteHeartRate() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.delete(TABLE_HEART, null, null);
+        db.close();
+
+        Log.d(TAG, "Deleted all heartrate info from sqlite");
     }
 }

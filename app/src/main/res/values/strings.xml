@@ -40,6 +40,9 @@
     <string name="average_bpm_text">Average BPM</string>
     <string name="bpm">BPM</string>
     <string name="devices">Bluetooth Devices</string>
+    <string name="student_bpm">BPM</string>
+    <string name="student_name">Name Here</string>
+    <string name="btnBpm">Push to start measuring</string>
 
     <!--    <string name="title_activity_login">Sign in</string>-->
     <!--    <string name="prompt_email">Email</string>-->

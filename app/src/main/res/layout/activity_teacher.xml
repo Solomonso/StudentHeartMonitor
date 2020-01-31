@@ -20,7 +20,7 @@
             android:id="@+id/text_view_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="125dp"
             android:text="@string/date"
             android:textAlignment="center"
             android:textColor="@color/date_color"
@@ -31,31 +31,31 @@
             android:id="@+id/text_view_lesson_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="100dp"
             android:text="@string/lesson_code_here"
             android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="100dp"
             android:text="@string/welcome"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="120dp"
             android:padding="10dp"
             android:textColor="@color/lbl_name"
-            android:textSize="24sp" />
+            android:textSize="36sp" />
 
         <Button
             android:id="@+id/createLesson"
             android:layout_width="250dp"
             android:layout_height="50sp"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="60dp"
             android:background="@color/btn_logut_bg"
             android:text="@string/create_lesson"
             android:textAllCaps="false"

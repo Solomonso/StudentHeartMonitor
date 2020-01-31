@@ -32,7 +32,7 @@ import com.example.studentheartmonitor.helper.SessionManager2;
 
 public class LoginStudentPage extends AppCompatActivity {
 
-    private static final String TAG = com.example.studentheartmonitor.activity.RegisterActivity.class.getSimpleName();
+    private static final String TAG = com.example.studentheartmonitor.activity.RegisterActivityStudent.class.getSimpleName();
     private Button btnLogin;
     private Button btnLinkToRegister;
     private EditText inputEmail;
@@ -146,6 +146,10 @@ public class LoginStudentPage extends AppCompatActivity {
                         Intent intent = new Intent(LoginStudentPage.this, StudentActivity.class);
                         startActivity(intent);
                         finish();
+
+                        // Create login session
+                        session.createSessionStudent(uid);
+
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");

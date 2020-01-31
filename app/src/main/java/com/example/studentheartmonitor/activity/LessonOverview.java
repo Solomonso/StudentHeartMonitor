@@ -27,12 +27,15 @@ import com.example.studentheartmonitor.R;
 import com.example.studentheartmonitor.helper.SQLiteHandler;
 import com.example.studentheartmonitor.helper.SessionManager;
 import com.google.android.material.navigation.NavigationView;
+import com.example.studentheartmonitor.*;
 
 public class LessonOverview extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView textLessonName;
+    private TextView textStudentName;
+    private TextView textStudentBpm;
     private SQLiteHandler db;
 
     @Override
@@ -87,9 +90,89 @@ public class LessonOverview extends AppCompatActivity {
         //get the lesson_overview_name  by id
         textLessonName = findViewById(R.id.lesson_overview_name);
 
+        //get the student name and student bpm
+        textStudentName = findViewById(R.id.student_name);
+        textStudentBpm = findViewById(R.id.student_bpm);
+
         // Fetching lesson details from SQLite
         HashMap<String,String> lesson = db.getUserLessonDetails();
 
+        //Fetching heart rate details From SQLite
+        HashMap<String,String> heart = db.getHeartDetails();
+
+        //Fetching student details From SQLite
+        HashMap<String,String> student = db.getStudentDetailsForTeacher();
+
+        IsCheckIn checkIn = new IsCheckIn();
+        if(checkIn.getCheckIn())
+        {
+
+            String name = student.get("student_username");
+            String nameInfo = "";
+            if(name != null)
+            {
+                nameInfo = nameInfo + " " + name;
+                textStudentName.setText(nameInfo);
+            }
+            else
+            {
+                nameInfo = nameInfo + "Student Name Here ";
+                textStudentName.setText(nameInfo);
+            }
+
+            //displaying the student name
+            //textStudentName.setText(name);
+
+
+            String heartRate = heart.get("heartrate");
+            String hearRateInfo = "";
+            if(heartRate == null || heartRate.equalsIgnoreCase("Remove and place finger") || heartRate.equalsIgnoreCase("momove and place finger") || heartRate.equalsIgnoreCase("eemove and place finger") || heartRate.equalsIgnoreCase("oveove and place finger") || heartRate.equalsIgnoreCase("No connectionsNo connectionsNo connectionsNo connectionsNo connections 50") || heartRate.equalsIgnoreCase("No connectionsRemove and place finger"))
+            {
+
+                hearRateInfo = hearRateInfo + "BPM ";
+                textStudentBpm.setText(hearRateInfo);
+            }
+            else
+            {
+                hearRateInfo = hearRateInfo + "BPM is " + heartRate;
+                textStudentBpm.setText(hearRateInfo);
+            }
+        }
+
+        if(!checkIn.getCheckIn())
+        {
+
+            String name = student.get("student_username");
+            String nameInfo = "";
+            if(name != null)
+            {
+                nameInfo = nameInfo + " " + name;
+                textStudentName.setText(nameInfo);
+            }
+            else
+            {
+                nameInfo = nameInfo + "Student Name Here ";
+                textStudentName.setText(nameInfo);
+            }
+
+            //displaying the student name
+            //textStudentName.setText(name);
+
+
+            String heartRate = heart.get("heartrate");
+            String hearRateInfo = "";
+            if(heartRate == null || heartRate.equalsIgnoreCase("Remove and place finger") || heartRate.equalsIgnoreCase("momove and place finger") || heartRate.equalsIgnoreCase("eemove and place finger") || heartRate.equalsIgnoreCase("oveove and place finger"))
+            {
+
+                hearRateInfo = hearRateInfo + "BPM ";
+                textStudentBpm.setText(hearRateInfo);
+            }
+            else
+            {
+                hearRateInfo = hearRateInfo + "BPM is " + heartRate;
+                textStudentBpm.setText(hearRateInfo);
+            }
+        }
 
         //get lesson code
         String lessonName = lesson.get("lesson_name");
@@ -101,7 +184,7 @@ public class LessonOverview extends AppCompatActivity {
         }
         else
         {
-            info = info + "Lesson \nInnovate";
+            info = info + "Lesson \n Not Set";
             textLessonName.setText(info);
         }
     }

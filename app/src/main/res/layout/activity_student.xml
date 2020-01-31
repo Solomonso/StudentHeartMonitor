@@ -21,9 +21,9 @@
         <TextView
             android:id="@+id/text_view_date2"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:text="@string/date"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="125dp"
             android:textAlignment="center"
             android:textColor="@color/date_color"
             android:textSize="15sp"
@@ -32,24 +32,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="100dp"
             android:text="@string/welcome"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="100dp"
             android:padding="10dp"
             android:textColor="@color/lbl_name"
-            android:textSize="24sp" />
+            android:textSize="37sp" />
 
         <Button
             android:id="@+id/btnOn"
-            android:layout_width="80dp"
+            android:layout_width="283dp"
+            android:backgroundTint="#00000000"
             android:layout_height="wrap_content"
-            android:text="LED ON"
+            android:text="@string/btnBpm"
+            android:layout_marginBottom="60dp"
+            android:textColorLink="#00FFFFFF"
             android:layout_marginTop="20dip" />
 
 

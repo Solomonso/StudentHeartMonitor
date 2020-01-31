@@ -34,8 +34,6 @@ import com.example.studentheartmonitor.helper.SQLiteHandler;
 import com.example.studentheartmonitor.helper.SessionManager;
 import com.google.android.material.navigation.NavigationView;
 
-import static java.nio.file.Paths.get;
-
 
 public class TeacherActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -195,6 +193,8 @@ public class TeacherActivity extends AppCompatActivity {
 
         db.deleteLessons();
         db.deleteUsers();
+        db.deleteStudents();
+        db.deleteHeartRate();
 
         // Launching the login activity
         Intent intent = new Intent(TeacherActivity.this, LoginTeacherPage.class);

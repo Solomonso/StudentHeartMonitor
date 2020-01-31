@@ -133,7 +133,7 @@ public class RegisterActivity extends Activity {
 
                         // Inserting row in users table
                         db.addUser(teacher_username, teacher_email, uid);
-                        Log.d(TAG, "inserted into table");
+                        Log.d(TAG, "teacher inserted into table");
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
