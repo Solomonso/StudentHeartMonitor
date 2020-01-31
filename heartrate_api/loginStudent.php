@@ -1,9 +1,11 @@
-<?php
-	
+<?php	
  require_once "include/DB_Functions.php";
  $db = new DB_Functions();
 
- $response = array("error"=>FALSE);
+//$_SESSION["student_id"] = $response["user"]["student_id"] = $user["student_id"];
+
+ $response = array();
+ //$response = array("error"=>FALSE);
  if(isset($_POST["student_email"]) && isset($_POST["student_password"]))
  {
  	$student_email = $_POST["student_email"];
@@ -15,10 +17,17 @@
  	{
  		$response["error"] = FALSE;
  		$response["uid"] = $user["unique_id"];
+
+ 		$response[0] = $user["student_id"];
+ 		$_SESSION['student_id'] = $user["student_id"];
+
  		$response["user"]["student_username"] = $user["student_username"];
  		$response["user"]["student_email"] = $user["student_email"];
- 		$response["user"]["encrypted_password"] = $user["encrypted_password"];
+ 		//$response["user"]["encrypted_password"] = $user["encrypted_password"];
  		echo json_encode($response);
+
+ 		//it shows the number
+ 		print_r($_SESSION['student_id']);
  	}
  	else
 	{

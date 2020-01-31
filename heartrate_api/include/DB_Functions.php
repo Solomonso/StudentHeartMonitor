@@ -1,4 +1,5 @@
-<?php
+<?php session_start();
+
 	
 	class DB_Functions
 	{
@@ -248,11 +249,11 @@
 				return false;
 			}	
 		}
-		
-		//get LessonCode for student
-		public function getLessonCode($inputLessonCode)
+
+		//get lessonCode for student old
+		public function getLessonCodeForStudent($lessonCode)
 		{
-			$stmt = $this->conn->prepare("SELECT lesson_code FROM lesson WHERE lesson_code = ?");
+			$stmt = $this->conn->prepare("SELECT lesson_code FROM lesson WHERE lesson_code = ? ORDER BY lesson_id DESC LIMIT 1");
 			$stmt->bind_param("s",$lessonCode);
 
 			if($stmt->execute())
@@ -264,11 +265,29 @@
 
 			}else{ return NULL;}
 		}
-		
-		//checkin to lesson
-		public function checkIn($student_Id)
+
+		//get LessonCode for student
+		public function getLessonCode($inputLessonCode)
 		{
-			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = "true" WHERE student_id = ?");
+			$stmt = $this->conn->prepare("SELECT lesson_code FROM lesson WHERE lesson_code = ?");
+			$stmt->bind_param("s",$inputLessonCode);
+
+			if($stmt->execute())
+			{
+				$currentLessonCode = $stmt->get_result()->fetch_assoc();
+				$stmt->close();
+
+					return $currentLessonCode;
+
+			}else{ return NULL;}
+		}
+
+		//checkin to lesson
+		public function checkIn($intStudent_id)
+		{
+			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = true WHERE student_id = ?");
+			$stmt->bind_param("s",$intStudent_id);
+
 			$result = $stmt->execute();
 			$stmt->close();
 			
@@ -291,25 +310,41 @@
 		//sending BPM to db
 		public function sendBPM($StringBPM)
 		{
-			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = "true" WHERE student_id = ?");
+			$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = true WHERE student_id = ?");
 			$result = $stmt->execute();
 			$stmt->close();
 			
-			if($result)
+			if(isset($_SESSION['student_id']))
 			{
-				$stmt = $this->conn->prepare("SELECT isCheckIn FROM heartrate WHERE student_id = ?");
-				$stmt->execute();
-				$lessonInfo = $stmt->get_result()->fetch_assoc();
+				//$stmt = $this->conn->prepare("UPDATE heartrate SET isCheckIn = 'true' WHERE student_id = ?");
+				//$result = $stmt->execute();
+				//$stmt->close();
+
+				$stmt = $this->conn->prepare("INSERT INTO heartrate(id,student_id,heartrate) VALUES(NULL,'".$_SESSION['student_id']."',?)");
+				//mine $stmt = $this->conn->prepare("INSERT INTO heartrate2(id,heartrate,isCheckIn) VALUES(NULL,?,'true')");
+				$stmt->bind_param("s",$StringBPM);
+				//var_dump($StringBPM);
+				$result = $stmt->execute();
 				$stmt->close();
 
-				return $isCheckin;
+				if($result)
+				{
+					$stmt = $this->conn->prepare("SELECT isCheckIn FROM heartrate2");
+					$stmt->execute();
+					$lessonInfo = $stmt->get_result()->fetch_assoc();
+					$stmt->close();
+
+					return $isCheckin;
+				}
+				else 
+				{
+					return false;
+				}
 			}
-			else 
-			{
-				return false;
-			}
+			
+			
 		}
-		
+
 		//getting student that are checked in
 		public function getStudentThatAreCheckedIn()
 		{
@@ -317,7 +352,7 @@
 										 FROM student 
 										 INNER JOIN heartrate
 										 ON student.student_id = heartrate.student_id
-										 WHERE heartrate.isCheckIn = "true"");
+										 WHERE heartrate.isCheckIn = 'true'");
 			$stmt->bind_param("sss", $studentId, $studentName, $BPM);
 			if($stmt->execute())
 			{
@@ -326,7 +361,7 @@
 				$stmt->close();
 			}else{ return NULL;}
 		}
-		
+
 	}
 	
 ?>
