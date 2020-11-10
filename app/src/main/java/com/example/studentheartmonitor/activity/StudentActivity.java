@@ -8,10 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 
 import java.io.IOException;
@@ -44,12 +41,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -78,7 +69,6 @@ public class StudentActivity extends AppCompatActivity {
     private TextView BPM;
     private TextView avgBPM;
     private int currentBPM = 0;
-    public static boolean isCheckIn;
     private Button btnOn;
     private Button btnOff;
     private Handler h;
@@ -94,9 +84,7 @@ public class StudentActivity extends AppCompatActivity {
     // SPP UUID service
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    // MAC-address of Bluetooth module (you must edit this line)
-                                        //98D331901B17
-
+    // MAC-address of Bluetooth module (edit this line)
     private static String address = "98:D3:31:90:1B:17";
 
     private SQLiteHandler db;
@@ -104,13 +92,10 @@ public class StudentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //giving error
-       // session.checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
         btnOn = findViewById(R.id.btnOn);
-        //btnOff = findViewById(R.id.btnOff);
         BPM = findViewById(R.id.BPM);
 
         h = new Handler() {
@@ -140,19 +125,11 @@ public class StudentActivity extends AppCompatActivity {
                                     sendBPM(sBPM);
                                 }
 
-//                            if(!sBPM.equalsIgnoreCase("Remove and place finger") || !sBPM.equalsIgnoreCase("oveove and place finger") || !sBPM.equalsIgnoreCase("momove and place finger") || !sBPM.equalsIgnoreCase("eemove and place finger"))
-//                            {
-//                                sendBPM(sBPM);
-//                                db.addHeartRate(sBPM);
-//                            }
-                            //else{ }
-
 
                             // btnOff.setEnabled(true);
                             btnOn.setEnabled(true);
 
                         }
-                        //Log.d(TAG2, "...String:"+ sb.toString() +  "Byte:" + msg.arg1 + "...");
                         break;
                 }
             }
@@ -164,8 +141,7 @@ public class StudentActivity extends AppCompatActivity {
         btnOn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 btnOn.setEnabled(false);
-                mConnectedThread.write("1");    // Send "1" via Bluetooth
-                //Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_SHORT).show();
+                mConnectedThread.write("1");
             }
         });
 
@@ -221,9 +197,7 @@ public class StudentActivity extends AppCompatActivity {
         TextView textViewDate = findViewById(R.id.text_view_date2);
         textViewDate.setText(currentDate);
 
-        //get the name and email by id
            txtName = findViewById(R.id.name);
-       // txtCode =  findViewById(R.id.lessonCodeView);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -234,11 +208,6 @@ public class StudentActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
-        // Fetching lesson details from SQLite
-        //HashMap<String,String> lesson = db.getUserLessonDetails();
-
-        //String lessonCode = lesson.get("lesson_code");
-        //txtCode.setText(lessonCode);
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getStudentDetails();
@@ -248,10 +217,6 @@ public class StudentActivity extends AppCompatActivity {
         // Displaying the user details on the screen
         txtName.setText(name);
 
-//        showBPM();
-//       showAvgBPM();
-//         String StringBPM = Integer.toString(currentBPM);
-//         sendBPM(StringBPM);
 
     }
 
@@ -394,29 +359,6 @@ public class StudentActivity extends AppCompatActivity {
     }
 
 
-    List<Integer> heartBeat = new ArrayList<>();
-    public void showBPM ()
-    {
-//        int currentBPM = 0;
-//        heartBeat.add(currentBPM);
-//
-//        BPM.setText(currentBPM);
-
-    }
-
-    public void showAvgBPM ()
-    {
-//        int sum = 0;
-//        int average;
-//        for (int beat : this.heartBeat)
-//        {
-//            sum = sum + beat;
-//        }
-//        average = sum / heartBeat.size();
-//        avgBPM = findViewById(R.id.AvgBPM);
-//        avgBPM.setText(average);
-    }
-
     /**
      * Function to store BPM in MySQL database
      * */
@@ -439,9 +381,6 @@ public class StudentActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
-//                        String sen = jObj.getString("send");
-//                        JSONObject send = jObj.getJSONObject("send");
-//                        String bpm = send.getString("heartrare");
 
                     } else {
 
