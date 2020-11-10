@@ -17,4 +17,5 @@ The Arduino uno is coded to receive pulse signal from the pulse sensor. The code
 **How the app receives data:**
 
 A Bluetooth module (HC-06) is wired to the Arduino uno. The purpose of the module is to send the BPM rates from the Arduino via Bluetooth for the app to process it as information. 
-
+Schematic:
+![hardwareImage](image/image.png)
