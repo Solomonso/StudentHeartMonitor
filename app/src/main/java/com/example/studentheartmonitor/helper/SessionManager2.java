@@ -20,7 +20,7 @@ public class SessionManager2 {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "Login2";
+    private static final String PREF_NAME = "AndroidLogin";
 
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 

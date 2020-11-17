@@ -83,6 +83,8 @@ public class JoinLesson extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Lesson joined successfully!", Toast.LENGTH_LONG)
                                 .show();
+                        //pDialog.setMessage("Joining in Lesson ...");
+                        //showDialog();
                         openStudentHome();
                        IsCheckIn checkIn = new IsCheckIn();
                        checkIn.setIsCheckIn(true);
@@ -90,6 +92,8 @@ public class JoinLesson extends AppCompatActivity {
 
                     else if(!LessonCode.equalsIgnoreCase((currentLessonCode)))
                     {
+//                        pDialog.setMessage("Unable to join lesson try again ...");
+//                        showDialog();
                         Toast.makeText(getApplicationContext(),
                                 "Unable to  join lesson! code incorrect", Toast.LENGTH_LONG)
                                 .show();
@@ -107,6 +111,90 @@ public class JoinLesson extends AppCompatActivity {
 
     }
 
+    /**
+     * function to verify lesson code in mysql db
+     * */
+//    private void joinLesson(final String LessonCode) {
+//
+//        if(LessonCode != null)
+//        {}
+//        // Tag used to cancel the request
+//        String tag_string_req = "req_join";
+//
+//        pDialog.setMessage("Joining in ...");
+//        showDialog();
+//
+//        StringRequest strReq = new StringRequest(Method.POST,
+//                AppConfig.URL_JOIN_LESSON, new Response.Listener<String>() {
+//
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d(TAG, "Join Lesson Response: " + response.toString());
+//                hideDialog();
+//
+//                try {
+//                    JSONObject jObj = new JSONObject(response);
+//                    boolean error = jObj.getBoolean("error");
+//
+//                    // Check for error node in json
+//                    if (!error) {
+//
+//                        // Now store the user in SQLite
+//                        //String lCode = jObj.getString("lCode");
+//
+////                        // Now store the user in sqlite
+////                        JSONObject lesson = jObj.getJSONObject("user");
+////                        String lesson_code = lesson.getString("lesson_code");
+//
+//                        // Inserting row in table
+//                        //db.addUser(teacher_username, teacher_email, uid);
+//
+//                        // Launch student activity
+//                        StudentActivity.isCheckIn = true;
+//                        Intent intent = new Intent(JoinLesson.this,StudentActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        // Error in login. Get the error message
+//                        String errorMsg = jObj.getString("error_msg");
+//                        Toast.makeText(getApplicationContext(),
+//                                errorMsg, Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    // JSON error
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "BPM Error: " + error.getMessage());
+//                Toast.makeText(getApplicationContext(),
+//                        error.getMessage(), Toast.LENGTH_LONG).show();
+//                hideDialog();
+//            }
+//        }) {
+//
+//            @Override
+//            protected Map<String, String> getParams() {
+//                // Posting parameters to login url
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("lesson_code", LessonCode);
+//                params.put("student_id", student_Id);
+//
+//                return params;
+//            }
+//
+//        };
+//
+//        // Adding request to request queue
+//        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+//
+//   }
+
     public void openStudentHome()
     {
         Intent intent = new Intent(JoinLesson.this,com.example.studentheartmonitor.activity.StudentActivity.class);
@@ -122,4 +210,8 @@ public class JoinLesson extends AppCompatActivity {
             pDialog.dismiss();
     }
 
+//    public boolean isCheckIn() {
+//        this.isCheckIn = true;
+//        return this.isCheckIn;
+//    }
 }
