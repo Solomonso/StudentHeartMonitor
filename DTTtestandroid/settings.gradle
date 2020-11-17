@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "DTT-test-android"
